@@ -10,11 +10,12 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 
 @Configuration
 public class SampleRouter {
-	@Bean
-	public RouterFunction<ServerResponse> route(final SampleHandler sampleHandler) {
 
-		return RouterFunctions
-				.route(RequestPredicates.GET("/hello")
-						.and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), sampleHandler::hello);
-	}
+  @Bean
+  public RouterFunction<ServerResponse> route(final SampleHandler sampleHandler) {
+
+    return RouterFunctions
+        .route(RequestPredicates.GET("/hello")
+            .and(RequestPredicates.accept(MediaType.TEXT_PLAIN)), sampleHandler::hello);
+  }
 }
