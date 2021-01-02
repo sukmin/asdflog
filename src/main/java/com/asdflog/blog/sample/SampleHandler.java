@@ -11,8 +11,8 @@ import reactor.core.publisher.Mono;
 @Component
 public class SampleHandler {
 
-	public Mono<ServerResponse> hello(final ServerRequest request) {
-		return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
-				.body(BodyInserters.fromValue("Hello, bambi!"));
-	}
+  public Mono<ServerResponse> hello(final ServerRequest request) {
+    return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
+        .body(BodyInserters.fromValue("Hello, bambi!"));
+  }
 }
