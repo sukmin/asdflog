@@ -10,12 +10,14 @@
 	</parent>
 	<groupId>com.asdflog</groupId>
 	<artifactId>blog</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>blog</name>
 	<description>simple blog project</description>
 
 	<properties>
 		<java.version>15</java.version>
+		<deploy-path>./deploy</deploy-path>
+		<deploy-name>asdfblog</deploy-name>
 	</properties>
 
 	<dependencies>
@@ -56,6 +58,13 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
 				<configuration>
 					<excludes>
 						<exclude>
@@ -63,6 +72,23 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<outputDirectory>${deploy-path}</outputDirectory>
+					<finalName>${deploy-name}</finalName>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${deploy-path}</directory>
+							<includes>
+								<include>**/*</include>
+							</includes>
+						</fileset>
+					</filesets>
 				</configuration>
 			</plugin>
 		</plugins>
