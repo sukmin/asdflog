@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+  <springProfile name="local">
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+      <encoder>
+        <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+      </encoder>
+    </appender>
+
+    <logger name="com.asdflog.blog" level="TRACE"/>
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.springframework.web" level="DEBUG"/>
+    <logger name="org.springframework.http" level="DEBUG"/>
+
+    <root level="INFO">
+      <appender-ref ref="consoleAppender"/>
+    </root>
+  </springProfile>
+
+  <springProfile name="alpha|real">
+    <appender name="dailyRollingFileAppender"
+      class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/home/bambi/logs/asdflog/asdflog.%d{yyyyMMdd}</fileNamePattern>
+        <maxHistory>30</maxHistory>
+      </rollingPolicy>
+      <encoder>
+        <pattern>${FILE_LOG_PATTERN}</pattern>
+      </encoder>
+    </appender>
+  </springProfile>
+
+  <springProfile name="alpha">
+    <root level="INFO">
+      <appender-ref ref="dailyRollingFileAppender"/>
+    </root>
+  </springProfile>
+
+  <springProfile name="real">
+    <root level="INFO">
+      <appender-ref ref="dailyRollingFileAppender"/>
+    </root>
+  </springProfile>
+</configuration>
