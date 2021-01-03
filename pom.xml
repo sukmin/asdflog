@@ -18,7 +18,7 @@
   <properties>
     <java.version>15</java.version>
     <deploy-path>./deploy</deploy-path>
-    <deploy-name>asdfblog</deploy-name>
+    <deploy-name>asdflog</deploy-name>
   </properties>
 
   <dependencies>
@@ -31,12 +31,6 @@
       <artifactId>spring-boot-starter-webflux</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-      <scope>runtime</scope>
-      <optional>true</optional>
-    </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
