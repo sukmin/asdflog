@@ -18,7 +18,7 @@
   <properties>
     <java.version>15</java.version>
     <deploy-path>./deploy</deploy-path>
-    <deploy-name>asdfblog</deploy-name>
+    <deploy-name>asdflog</deploy-name>
   </properties>
 
   <dependencies>

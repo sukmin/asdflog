@@ -23,7 +23,7 @@
     <appender name="dailyRollingFileAppender"
       class="ch.qos.logback.core.rolling.RollingFileAppender">
       <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        <fileNamePattern>/home/bambi/logs/asdflog/asdflog.%d{yyyyMMdd}</fileNamePattern>
+        <fileNamePattern>/home/bambi/logs/asdflog/asdflog.%d{yyyyMMdd}.log</fileNamePattern>
         <maxHistory>30</maxHistory>
       </rollingPolicy>
       <encoder>
