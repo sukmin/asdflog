@@ -8,28 +8,28 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.RequestPredicates;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.RouterFunctions;
-import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
-import reactor.core.publisher.Mono;
 
 @Configuration
 public class MonitorRouterConfig {
 
+  private static final String OK = "OK";
+
   @Bean
   public RouterFunction<ServerResponse> monitorRouter() {
     return RouterFunctions
-        .route(RequestPredicates.GET("/monitor/l7check"), MonitorHandler::ok);
+        .route(RequestPredicates.GET("/monitor/l7check"), serverRequest ->
+            ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
+                .cacheControl(CacheControl.noStore())
+                .body(BodyInserters.fromValue(OK)));
   }
 
-  static class MonitorHandler {
-
-    private static final String OK = "OK";
-
-    public static Mono<ServerResponse> ok(final ServerRequest request) {
-      return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
-          .cacheControl(CacheControl.noStore())
-          .body(BodyInserters.fromValue(OK));
-    }
+  @Bean
+  public RouterFunction<ServerResponse> errorRouter() {
+    return RouterFunctions
+        .route(RequestPredicates.GET("/monitor/error"), serverRequest -> {
+          throw new RuntimeException("force error");
+        });
   }
 
 }

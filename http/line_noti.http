@@ -1,0 +1,6 @@
+### https://engineering.linecorp.com/ko/blog/using-line-notify-to-send-messages-to-line-from-the-command-line/
+POST https://notify-api.line.me/api/notify
+Authorization: Bearer 토큰
+Content-Type: application/x-www-form-urlencoded
+
+message=테스트입니다.
