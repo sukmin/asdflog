@@ -16,21 +16,22 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 public class LineNotifyAppender extends UnsynchronizedAppenderBase<ILoggingEvent> {
 
+  private static final String SYSTEM_PROPERTY_LINE_NOTIFY_TOKEN = "asdflog.line.notify.token";
   private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter
       .ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
   private static final int LINE_NOTIFY_MESSAGE_MAX = 1000;
 
-  private final boolean nonUse;
-  private WebClient webClient;
+  private final WebClient webClient;
 
 
   public LineNotifyAppender() {
 
-    String lineNotifyToken = System.getProperty("asdflog.line.notify.token");
-
-    nonUse = StringUtils.isBlank(lineNotifyToken);
-    if (nonUse) {
-      return;
+    String lineNotifyToken = System.getProperty(SYSTEM_PROPERTY_LINE_NOTIFY_TOKEN);
+    if (StringUtils.isBlank(lineNotifyToken)) {
+      throw new IllegalStateException(
+          "In 'alpha','real' profile, VM option '-D" + SYSTEM_PROPERTY_LINE_NOTIFY_TOKEN
+              + "' is required. " + SYSTEM_PROPERTY_LINE_NOTIFY_TOKEN + " is " + lineNotifyToken
+              + ".");
     }
 
     this.webClient = WebClient.builder()
@@ -42,10 +43,6 @@ public class LineNotifyAppender extends UnsynchronizedAppenderBase<ILoggingEvent
 
   @Override
   protected void append(ILoggingEvent iLoggingEvent) {
-    if (nonUse) {
-      return;
-    }
-
     var fullMessage = iLoggingEventToString(iLoggingEvent);
     var message = StringUtils.left(fullMessage, LINE_NOTIFY_MESSAGE_MAX);
 
