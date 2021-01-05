@@ -30,17 +30,35 @@
         <pattern>${FILE_LOG_PATTERN}</pattern>
       </encoder>
     </appender>
+
+    <appender name="lineNotifyAppender" class="com.asdflog.blog.common.appender.LineNotifyAppender">
+      <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+        <level>ERROR</level>
+      </filter>
+    </appender>
+
+    <appender name="lineNotifyAppenderAsyncAppender" class="ch.qos.logback.classic.AsyncAppender">
+      <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+        <level>ERROR</level>
+      </filter>
+      <param name="neverBlock" value="true"/>
+      <param name="includeCallerData" value="true"/>
+      <param name="queueSize" value="2048"/>
+      <appender-ref ref="lineNotifyAppender"/>
+    </appender>
   </springProfile>
 
   <springProfile name="alpha">
     <root level="INFO">
       <appender-ref ref="dailyRollingFileAppender"/>
+      <appender-ref ref="lineNotifyAppenderAsyncAppender"/>
     </root>
   </springProfile>
 
   <springProfile name="real">
     <root level="INFO">
       <appender-ref ref="dailyRollingFileAppender"/>
+      <appender-ref ref="lineNotifyAppenderAsyncAppender"/>
     </root>
   </springProfile>
 </configuration>
