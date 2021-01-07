@@ -1,0 +1,8 @@
+### 게시글 등록
+POST http://127.0.0.1:8080/articles
+Content-Type: application/x-www-form-urlencoded
+
+title=나는타이틀&body=나는바디
+
+### 게시글 전체 불러오기
+GET http://127.0.0.1:8080/articles
