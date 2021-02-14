@@ -18,7 +18,7 @@ public class LineNotifyAppender extends UnsynchronizedAppenderBase<ILoggingEvent
 
   private static final String SYSTEM_PROPERTY_LINE_NOTIFY_TOKEN = "asdflog.line.notify.token";
   private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter
-      .ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+      .ofPattern("yyyy-MM-dd HH:mm:ss SSS");
   private static final int LINE_NOTIFY_MESSAGE_MAX = 1000;
 
   private final WebClient webClient;
@@ -64,7 +64,7 @@ public class LineNotifyAppender extends UnsynchronizedAppenderBase<ILoggingEvent
     var message = iLoggingEvent.getMessage();
     var exception = ThrowableProxyUtil.asString(iLoggingEvent.getThrowableProxy());
 
-    return "time:" + time + "\n" +
+    return "\ntime:" + time + "\n" +
         "message:" + message + "\n" +
         "exception:" + exception;
   }
